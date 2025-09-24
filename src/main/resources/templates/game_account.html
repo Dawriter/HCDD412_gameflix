@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyemelaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:utext="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+</head>
+<body>
+<div class="container">
+    <div class="container-fluid">
+        <div class="page-header">
+            <h3 th:utext="${title}"></h3>
+        </div>
+        <form action="#"
+              th:action="@{/game/addAccountGame/}+${game.sid}+@{/account}"
+              enctype="multipart/form-data">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Data Game Info</div>
+                    <div class="panel-body" style="padding-left: 5px;">
+                       Title : <b th:utext="${game.title}"></b>
+                        <br/>
+
+                        Genre : <b th:utext="${game.genre}"></b>
+                        <br/>
+                        Price : <b th:utext="${game.price}"></b>
+                        <br/>
+                        Owners : <span th:each="account : ${game.game_owners}">
+                            <br/>&nbsp;&nbsp;<b th:utext="${account.gameTitle}"></b>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" name="gameId">
+                        <option th:each="game: ${games}"
+                                th:value="${game.gameId}"
+                                th:text="${account.gameTitle}"></option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-primary">
+                Add Account
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
