@@ -11,11 +11,11 @@ public class Game implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
-    @Column(name = "Title")
+    @Column(name = "title")
     private String title;
-    @Column(name= "Genre")
+    @Column(name= "genre")
     private String genre;
-    @Column(name = "Price")
+    @Column(name = "price")
     private Float price;
 
     @ManyToMany(cascade = CascadeType.MERGE)

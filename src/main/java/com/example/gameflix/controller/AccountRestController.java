@@ -26,4 +26,5 @@ public class AccountRestController {
         }
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.gameflix.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class Account implements Serializable {
     @Column(name= "password")
     private String password;
 
-    @ManyToMany(mappedBy = "accounts")
+    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Game> games = new HashSet<>();
 
@@ -61,3 +62,4 @@ public class Account implements Serializable {
         this.games = games;
     }
 }
+

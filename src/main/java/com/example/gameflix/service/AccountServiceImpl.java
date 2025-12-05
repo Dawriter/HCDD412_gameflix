@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import com.example.gameflix.model.Account;
 import com.example.gameflix.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public boolean validateUser(Account account) {
+        for (Account i : accountRepository.findAll()) {
+            if (passwordEncoder.matches(account.getPassword(), i.getPassword()) && account.getUsername().equals(i.getUsername())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public List<Account> getAllAccounts() {
