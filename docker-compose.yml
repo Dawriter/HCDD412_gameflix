@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.0
+    platform: linux/amd64          # good practice on Windows/macOS
+    container_name: demo-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "duckyDays"  # demo password (OK for classroom)
+      MYSQL_DATABASE: demo30
+    ports:
+      - "3307:3306"                # host:container
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - demo-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot"]
+      interval: 10s
+      retries: 10
+      timeout: 5s
+
+  app:
+    build: .
+    container_name: demo-springboot
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "duckyDays"
+    networks:
+      - demo-net
+
+volumes:
+  mysql_data:
+
+networks:
+  demo-net:

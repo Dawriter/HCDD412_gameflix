@@ -9,20 +9,19 @@
 <body>
 <div class="container">
 <h1>Account Management System </h1>
-<h2> Save Account</h2>
-<form action="#" th:action="@{/saveAccount}" th:object="${account}"
+<h2> Login Page</h2>
+    <h3> Login failed, please try again.</h3>
+<form action="#" th:action="@{/login}" th:object="${account}"
       method="POST">
     <input type="text" th:field="*{username}"
            placeholder="Username" class="form-control mb-4 col-4">
-
-    <input type="text" th:field="*{email}"
-           placeholder="Email" class="form-control mb-4 col-4">
 
     <input type="text" th:field="*{password}"
            placeholder="Password" class="form-control mb-4 col-4">
 
 
-    <button type="submit" class="btn btn-info col-2"> Save Account</button>
+    <button type="submit" class="btn btn-info col-2"> Login </button>
+    <a th:href = "@{/index}" class="btn btn-primary btn-sm mb-3"> Back </a>
 </form>
 </div>
 </body>
